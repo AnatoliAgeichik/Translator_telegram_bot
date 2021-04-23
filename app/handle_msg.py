@@ -5,16 +5,9 @@ from google_trans_new import google_translator
 import google_trans_new
 
 translator = google_translator()
-language_target = ''
-text_to_translate = ''
 
-
-def get_bot_token():
-    load_dotenv(find_dotenv())
-    return os.environ.get("TOKEN")
-
-
-bot = telebot.TeleBot(get_bot_token())
+load_dotenv(find_dotenv())
+bot = telebot.TeleBot(os.environ.get("TOKEN"))
 
 
 def print_all_language(message):
@@ -29,7 +22,7 @@ def welcome(message):
 
 @bot.message_handler(commands=['help'])
 def help_msg(message):
-    bot.send_message(message.chat.id, "I can't do anything yet, but I'll soon learn how to translate messages)")
+    bot.send_message(message.chat.id, "/translate if you want, then type this command or type you message")
 
 
 @bot.message_handler(commands=['translate'])
@@ -41,17 +34,15 @@ def choose_language(message):
 def get_text(message):
     global language_target
     if message.text in google_trans_new.LANGUAGES.keys():
-        language_target = message.text
         bot.send_message(message.chat.id, "what do you want me to translate for you")
-        bot.register_next_step_handler(message, translate)
+        bot.register_next_step_handler(message, translate, message.text)
     else:
         print_all_language(message)
         choose_language(message)
 
 
-def translate(message):
-    global language_target
-    bot.send_message(message.chat.id, translator.translate(message.text, lang_tgt=language_target))
+def translate(message, language_taget):
+    bot.send_message(message.chat.id, translator.translate(message.text, lang_tgt=language_taget))
 
 
 @bot.message_handler(content_types=['text'])
