@@ -51,9 +51,8 @@ def change_language_from(message):
 @bot.message_handler(commands=['start'])
 def welcome(message):
     bot.send_message(message.chat.id, f"Hello, {message.from_user.first_name}, I'm bot_translator")
-
     if message.from_user.id not in get_all_users():
-        add_new_user(message.chat.id)
+        add_new_user(message.from_user.id)
         print_info(message)
         help_msg(message)
 
