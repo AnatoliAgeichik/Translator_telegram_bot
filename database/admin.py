@@ -18,26 +18,16 @@ def executeScriptsFromFile(filename):
     sqlFile = fd.read()
     fd.close()
     sqlCommands = sqlFile.split(';')
-    print("aa")
     for command in sqlCommands:
-        print("fff")
         try:
             if command.strip() != '':
-                print("hmmm")
-                print(command)
                 cursor.execute(command)
-                print("hmmm")
         except IOError as exc:
             logging.error(exc)
 
 
 if __name__ == "__main__":
-    print("1")
-    executeScriptsFromFile("create_database.sql")
-    print("1")
+    executeScriptsFromFile("database/create_database.sql")
     connection.commit()
-    print("1")
-    executeScriptsFromFile("create_table.sql")
-    print("1")
+    executeScriptsFromFile("database/create_table.sql")
     connection.commit()
-    print("1")

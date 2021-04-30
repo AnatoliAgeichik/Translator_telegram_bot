@@ -21,8 +21,7 @@ def update_language_target_for_user(user_id, language):
 
 
 def add_new_user(user_id, language_target="en", language_from="ru"):
-    cursor.execute("INSERT INTO user_language (user_id, language_target, language_from) VALUES %(user_id}s,"
-                   " %(language_target}s,%(language_from)s",
+    cursor.execute("INSERT INTO user_language (user_id, language_target, language_from) VALUES (%(user_id)s, %(language_target)s, %(language_from)s)",
                    {'user_id': user_id,
                     'language_target': language_target,
                     'language_from': language_from})
