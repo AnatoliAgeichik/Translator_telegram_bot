@@ -1,3 +1,2 @@
-DROP DATABASE IF EXISTS translator;
-CREATE DATABASE translator;
+CREATE DATABASE IF NOT EXISTS translator;
 USE translator;
