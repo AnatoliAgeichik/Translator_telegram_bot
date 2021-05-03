@@ -51,3 +51,9 @@ def get_language_from(user_id):
     cursor.execute("SELECT language_from FROM user_language WHERE user_id = %(user_id)s",
                    {'user_id': user_id})
     return cursor.fetchone()[0]
+
+
+def delete_user(user_id):
+    cursor.execute("DELETE FROM user_language WHERE user_id = %(user_id)s",
+                   {'user_id': user_id})
+    connection.commit()
