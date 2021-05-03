@@ -11,6 +11,8 @@ services:
       - 3306:3306
     expose:
        - 3306
+    volumes:
+      - vol:/var/lib/mysql
 
 
   app:
@@ -20,6 +22,8 @@ services:
 
     command: bash -c "python database/admin.py && python app/handle_msg.py"
     volumes:
-      - .:/code
+      - .:/bot
     depends_on:
       - db
+volumes:
+      vol:
